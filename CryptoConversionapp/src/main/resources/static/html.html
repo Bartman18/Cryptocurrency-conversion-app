@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "vireport" content="width-device, initial-scale-1.0">
+    <title>CRYPTOCURRENCY CONVERSION APP</title>
+    <script src="js/script.js"></script>
+</head>
+<body>
+<h1>CRYPTOCURRENCY TO FIAT</h1>
+<select id="mySelect"></select>
+
+
+<script>
+      fetch('/api/data')
+        .then(response => response.json())
+        .then(data => {
+          const select = document.getElementById('mySelect');
+
+          data.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.name; // Ustawienie wartości opcji na nazwę kryptowaluty
+            option.textContent = item.name; // Ustawienie tekstu opcji na nazwę kryptowaluty
+            select.appendChild(option);
+          });
+
+        })
+        .catch(error => {
+          console.error('Wystąpił błąd podczas pobierania danych z API:', error);
+        });
+
+s
+    </script>
+
+
+
+
+<h1>CRYPTO TO CRYPTO</h1>
+</body>
+</html>
