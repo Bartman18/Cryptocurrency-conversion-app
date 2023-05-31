@@ -109,6 +109,16 @@ public class CryptoControler {
 
         return resultArray.toString();
     }
+    
+    @GetMapping("/api/{coin}/{currency}/price")
+    public ResponseEntity<Object> getPrice(@PathVariable String coin, @PathVariable String currency){
+        String apiUrl = "https://api.coingecko.com/api/v3/simple/price?ids=" + coin + "&vs_currencies=" + currency;
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Object> response = restTemplate.getForEntity(apiUrl, Object.class);
+
+        return response;
+    }
 
 
 
