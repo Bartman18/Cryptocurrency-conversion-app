@@ -1,0 +1,45 @@
+
+        .okienko {
+            display: inline-block;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background-color: #f9f9f9;
+            cursor: default;
+
+        }
+
+
+
+
+        h1{
+            color: white;
+            text-align: center;
+
+         }
+        select, .okienko {
+          display: inline-block;
+        }
+
+        .side_center {
+          margin: 0px auto;
+          display: table;
+        }
+
+        body {
+            background-image: url("https://image.cnbcfm.com/api/v1/image/106962967-1634709558798-gettyimages-1235570383-porzycki-cryptocu210928_npbUe.jpeg?v=1638893580");
+            background-repeat: no-repeat;
+            background-size: cover;
+    }
+
+    .input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+
+
+

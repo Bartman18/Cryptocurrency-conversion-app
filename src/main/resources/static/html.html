@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRYPTOCURRENCY CONVERSION APP</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+
+
+
+</head>
+<body >
+<h1>CRYPTOCURRENCY CONVERSION APP</h1>
+
+
+<div class="center-all">
+    <h1>CRYPTOCURRENCY TO FIAT</h1>
+<div class="input-container">
+<select id="coinSelect" >
+    <option value="">Wybierz kryptowalutę</option>
+    <option value="bitcoin">Bitcoin</option>
+    <option value="ethereum">Ethereum</option>
+    <option value="litecoin">Litecoin</option>
+    <option value="ripple">Ripple</option>
+    <option value="cardano">Cardano</option>
+    <option value="binancecoin">Binance Coin</option>
+    <option value="dogecoin">Dogecoin</option>
+    <option value="polkadot">Polkadot</option>
+    <option value="chainlink">Chainlink</option>
+    <option value="stellar">Stellar</option>
+    <option value="vechain">VeChain</option>
+    <option value="tron">Tron</option>
+    <option value="eos">EOS</option>
+    <option value="monero">Monero</option>
+    <option value="neo">NEO</option>
+    <option value="cosmos">Cosmos</option>
+    <option value="tezos">Tezos</option>
+    <option value="iota">IOTA</option>
+    <option value="zcash">Zcash</option>
+
+</select>
+
+
+<select id="currencySelect" >
+    <option value="">Wybierz walutę</option>
+    <option value="eur">EUR</option>
+    <option value="usd">USD</option>
+    <option value="pln">PLN</option>
+    <option value="aud">AUD</option>
+    <option value="cad">CAD</option>
+    <option value="aed">AED</option>
+    <option value="chf">CHF</option>
+
+</select>
+
+<div id="resultDiv" class="okienko"></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const selectCoin = document.getElementById('coinSelect');
+    const selectCurrency = document.getElementById('currencySelect');
+    const resultDiv = document.getElementById('resultDiv');
+
+
+    selectCoin.addEventListener('change', fetchPrice);
+    selectCurrency.addEventListener('change', fetchPrice);
+
+    function fetchPrice() {
+        const coin = selectCoin.value;
+        const currency = selectCurrency.value;
+
+        if (coin && currency) {
+            const apiUrl = `/api/${coin}/${currency}/price`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const price = data[coin][currency];
+                    resultDiv.textContent = `Cena: ${price} ${currency}`;
+
+
+                    saveCryptoToDatabase(coin, currency, price);
+                })
+                .catch(error => {
+                    console.error('Wystąpił błąd podczas pobierania danych z API:', error);
+                });
+        }
+    }
+});
+
+function saveCryptoToDatabase(coin, currency, price) {
+
+    const currentDate = new Date();
+    const dateTime = currentDate.toISOString();
+
+
+    const crypto = {
+        coin: coin,
+        currency: currency,
+        price: price,
+        dateTime: dateTime
+    };
+    }
+
+
+    </script>
+
+
+<h1>CRYPTO TO CRYPTO</h1>
+
+<div class="input-container">
+<select id="Crypto1a" >
+    <option value="">Wybierz kryptowalutę</option>
+    <option value="bitcoin">Bitcoin</option>
+    <option value="ethereum">Ethereum</option>
+    <option value="litecoin">Litecoin</option>
+    <option value="ripple">Ripple</option>
+    <option value="cardano">Cardano</option>
+    <option value="binancecoin">Binance Coin</option>
+    <option value="dogecoin">Dogecoin</option>
+    <option value="polkadot">Polkadot</option>
+    <option value="chainlink">Chainlink</option>
+    <option value="stellar">Stellar</option>
+    <option value="vechain">VeChain</option>
+    <option value="tron">Tron</option>
+    <option value="eos">EOS</option>
+    <option value="monero">Monero</option>
+    <option value="neo">NEO</option>
+    <option value="cosmos">Cosmos</option>
+    <option value="tezos">Tezos</option>
+    <option value="iota">IOTA</option>
+    <option value="zcash">Zcash</option>
+
+</select>
+
+
+<select id="crypto2a" >
+    <option value="">Wybierz kryptowalutę</option>
+</select>
+
+<div id="resultDiv2" class="okienko"></div>
+</div>
+</div>
+
+<script>
+    const selectCrypto1a = document.getElementById('Crypto1a');
+    const selectCrypto2a = document.getElementById('crypto2a');
+    const resultDiv = document.getElementById('resultDiv2');
+
+    selectCrypto1a.addEventListener('change', fetchCrypto);
+    selectCrypto2a.addEventListener('change', fetchCrypto);
+
+    function fetchData() {
+        fetch('/api/data')
+            .then(response => response.json())
+            .then(data => {
+                const select = document.getElementById('crypto2a');
+
+                select.innerHTML = '';
+
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Wybierz kryptowalutę';
+                select.appendChild(defaultOption);
+
+                data.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.symbol;
+                    option.textContent = item.name;
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Wystąpił błąd podczas pobierania danych z API:', error);
+            });
+    }
+
+    fetchData();
+
+    function fetchCrypto() {
+        const coin1 = selectCrypto1a.value;
+        const coin2 = selectCrypto2a.value;
+
+        if (coin1 && coin2) {
+            const url = `/api/${coin1}/${coin2}/price`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const priceCrypto = data[coin1][coin2];
+                    resultDiv.textContent = `Cena: ${priceCrypto} ${coin2}`;
+                })
+                .catch(error => {
+                    console.error('Błąd w API:', error);
+                });
+        }
+    }
+</script>
+</body>
+</html>
